@@ -3,20 +3,21 @@
 
 import { FunctionComponent } from "react"
 import ReactDOMServer from "react-dom/server"
-import { IntlProvider } from "../react-components"
-import * as locales from "../locales"
+import { CustomTranslations, IntlProvider, locale } from "../react-components"
 
-export type Context = {
-  locale?: keyof typeof locales
-}
+export type Context =
+  | {
+      locale?: locale
+    }
+  | CustomTranslations
 
 export const ComponentWrapper = <Props extends {}>(
   Component: FunctionComponent<Props>,
   props: Props,
-  { locale = "en" }: Context,
+  context: Context,
 ) => {
   return ReactDOMServer.renderToStaticMarkup(
-    <IntlProvider locale={locale}>
+    <IntlProvider<Context> {...context}>
       <Component {...props} />
     </IntlProvider>,
   )
