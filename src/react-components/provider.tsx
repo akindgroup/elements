@@ -200,7 +200,7 @@ export type SupportedLanguageFormats = {
   [k in keyof typeof locales]: TranslationFile
 }
 
-type locale = keyof typeof locales
+export type locale = keyof typeof locales
 
 export interface SupportedTranslations {
   locale?: locale
